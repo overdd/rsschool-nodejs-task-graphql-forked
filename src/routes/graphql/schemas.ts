@@ -1,9 +1,8 @@
 import { Type } from '@fastify/type-provider-typebox';
-// import { PrismaClient } from '@prisma/client';
-import { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLSchema, GraphQLList } from 'graphql';
 import { Member, Post, User, Profile } from './types/allTypes.js';
-
-// const prisma = new PrismaClient();
+import { UUIDType } from './types/allTypes.js';
+import { MemberTypeId } from './types/member.js';
 
 export const gqlResponseSchema = Type.Partial(
   Type.Object({
@@ -32,7 +31,7 @@ export const schema = new GraphQLSchema({
           fields: {
             memberType: {
               type: Member,
-              args: { id: { type: GraphQLString }},
+              args: { id: { type: MemberTypeId }},
             },
             memberTypes: {
               type: new GraphQLList(Member),
@@ -40,7 +39,7 @@ export const schema = new GraphQLSchema({
             },
             post: {
               type: Post,
-              args: { id: { type: GraphQLString }},
+              args: { id: { type: UUIDType }},
             },
             posts: {
               type: new GraphQLList(Post),
@@ -48,7 +47,7 @@ export const schema = new GraphQLSchema({
             },
             user: {
               type: User,
-              args: { id: { type: GraphQLString }},
+              args: { id: { type: UUIDType }},
             },
             users: {
               type: new GraphQLList(User),
@@ -56,7 +55,7 @@ export const schema = new GraphQLSchema({
             },  
             profile: {
               type: Profile,
-              args: { id: { type: GraphQLString }},
+              args: { id: { type: UUIDType }},
             },
             profiles: {
               type: new GraphQLList(Profile),

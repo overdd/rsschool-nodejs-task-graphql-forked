@@ -21,7 +21,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req, reply) {
       const { query, variables } = req.body;
-
+      
       const result = await graphql({
         schema: schema,
         source: query,
@@ -39,7 +39,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         return reply.code(400).send({ errors: result.errors });
       }
 
-      return result;
+      return { data: result.data };
     },
   });
 };
