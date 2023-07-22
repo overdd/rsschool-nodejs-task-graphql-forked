@@ -1,8 +1,6 @@
 import { GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
-import { Post } from "./post.js";
 import { NoArgument, Prisma } from "./common.js";
-import { Profile } from "./profile.js";
-import { UUIDType } from "./allTypes.js";
+import { UUIDType, Profile, Post } from "./allTypes.js";
 
 export const User = new GraphQLObjectType({
     name: 'users',

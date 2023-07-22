@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLString } from "graphql";
-import { UUIDType } from "./uuid.js";
+import { UUIDType,  memberType } from "./allTypes.js";
+import { NoArgument, Prisma } from "./common.js";
 
 export const Profile = new GraphQLObjectType({
     name: 'profiles',
@@ -14,10 +15,14 @@ export const Profile = new GraphQLObjectType({
         type: GraphQLString
       },
       userId: {
-        type: GraphQLString
+        type: UUIDType
       },
-      memberTypeId: {
-        type: GraphQLString
-      }
+      memberType: {
+        type: memberType,
+        resolve: async(source: typeof Profile, _: NoArgument, { prisma }: Prisma) => await prisma.memberType.findFirst({ 
+          where: { id: { equals: source.memberTypeId }
+        },
+        }),
+      },
     })
   });

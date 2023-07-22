@@ -1,23 +1,23 @@
-import { GraphQLEnumType, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLEnumType, GraphQLObjectType, GraphQLString } from "graphql";
 
-type MemberTypeId = 'basic' | 'business';
+export type MemberTypeId = 'basic' | 'business';
 
-export const MemberTypeId = new GraphQLNonNull(
+export const MemberTypeIdAsEnum = 
   new GraphQLEnumType({
     name: 'MemberTypeId',
     values: {
       basic: { value: 'basic' },
       business: { value: 'business' },
     },
-  }),
-);
+  });
 
 
-export const Member = new GraphQLObjectType({
+
+export const memberType = new GraphQLObjectType({
     name: "member",
     fields: () => ({
         id: {
-            type: MemberTypeId
+            type: MemberTypeIdAsEnum
         },
         discount: {
             type: GraphQLString
