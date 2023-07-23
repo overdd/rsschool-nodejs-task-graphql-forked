@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLFloat, GraphQLInputObjectType, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
 import { NoArgument, Prisma } from "./common.js";
 import { UUIDType, Profile, Post } from "./allTypes.js";
 
@@ -12,7 +12,7 @@ export const User = new GraphQLObjectType({
         type: GraphQLString
       },
       balance: {
-        type: GraphQLString
+        type: GraphQLFloat
       },
       posts: {
         type: new GraphQLList(Post),
@@ -53,7 +53,7 @@ export const CreateUserInput = new GraphQLInputObjectType({
         type: GraphQLString 
       },
       balance: { 
-        type: GraphQLString 
+        type: GraphQLFloat
       },
     },
   });

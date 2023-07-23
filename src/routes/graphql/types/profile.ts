@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLInputObjectType, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 import { MemberTypeIdAsEnum, UUIDType, memberType } from "./allTypes.js";
 import { NoArgument, Prisma } from "./common.js";
 
@@ -31,12 +31,12 @@ export const Profile = new GraphQLObjectType({
     name: 'CreateProfileInput',
     fields: {
       isMale: {
-        type: GraphQLString
+        type: GraphQLBoolean
       },
       yearOfBirth: { 
-        type: GraphQLString 
+        type: GraphQLInt 
       },
-      memberType: { 
+      memberTypeId: { 
         type: MemberTypeIdAsEnum 
       },
       userId: { 
