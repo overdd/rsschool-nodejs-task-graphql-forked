@@ -4,8 +4,10 @@ import memberTypeResolvers from './resolvers/member.resolver.js';
 import postResolver from './resolvers/post.resolver.js';
 import userResolver from './resolvers/user.resolver.js';
 import profileResolver from './resolvers/profile.resolver.js';
-import { graphql } from 'graphql';
+import { graphql, validate, parse } from 'graphql';
+import depthLimit from 'graphql-depth-limit'
 
+const queryDepthLimit = [depthLimit(5)];
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
   const { prisma } = fastify;
@@ -21,7 +23,12 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req, reply) {
       const { query, variables } = req.body;
-      
+
+      const validationResult = validate(rootSchema, parse(query), queryDepthLimit);
+      if (validationResult != undefined && validationResult.length > 0) {
+        return { errors: validationResult };
+      }
+
       const result = await graphql({
         schema: rootSchema,
         source: query,
