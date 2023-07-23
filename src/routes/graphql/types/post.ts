@@ -22,10 +22,26 @@ export const Post = new GraphQLObjectType({
   export const CreatePostInput = new GraphQLInputObjectType({
     name: 'CreatePostInput',
     fields: {
-      title: { type: GraphQLString },
-      content: { type: GraphQLString },
-      authorId: { type: GraphQLString },
+      title: { 
+        type: GraphQLString 
+      },
+      content: { 
+        type: GraphQLString 
+      },
+      authorId: { 
+        type: GraphQLString 
+      },
     },
   });
   
-  
+  export const ChangePostInput = new GraphQLInputObjectType({
+    name: 'ChangePostInput',
+    fields: {
+      title: { 
+        type: GraphQLString 
+      },
+      content: { 
+        type: GraphQLString 
+      },
+    },
+  });

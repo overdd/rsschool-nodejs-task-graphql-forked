@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { MemberTypeIdAsEnum } from "./member.js";
 
 export type Id = {
     id: string

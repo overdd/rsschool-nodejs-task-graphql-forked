@@ -1,6 +1,6 @@
 import { Type } from '@fastify/type-provider-typebox';
 import { GraphQLObjectType, GraphQLSchema, GraphQLList } from 'graphql';
-import { memberType, UUIDType, MemberTypeIdAsEnum,Post, User, Profile, CreateUserInput, CreatePostInput, CreateProfileInput } from './types/allTypes.js';
+import { memberType, UUIDType, MemberTypeIdAsEnum,Post, User, Profile, CreateUserInput, CreatePostInput, CreateProfileInput, ChangePostInput, ChangeUserInput, ChangeProfileInput } from './types/allTypes.js';
 
 
 export const gqlResponseSchema = Type.Partial(
@@ -84,6 +84,44 @@ export const rootSchema = new GraphQLSchema({
           dto: { type: CreateProfileInput }
         },
       },
-    }
-  })
+      deleteUser: {
+        type: UUIDType,
+        args: {
+          id: { type: UUIDType },
+        },
+      },
+      deletePost: {
+        type: UUIDType,
+        args: {
+          id: { type: UUIDType },
+        }
+      },
+      deleteProfile: {
+        type: UUIDType,
+        args: {
+          id: { type: UUIDType },
+        }
+      },
+      changeUser: {
+        type: User,
+        args: {
+          id: { type: UUIDType },
+          dto: { type: ChangeUserInput }
+        }
+      },
+      changePost: {
+        type: Post,
+        args: {
+          id: { type: UUIDType },
+          dto: { type: ChangePostInput }
+        }
+      },
+      changeProfile: {
+        type: Profile,
+        args: {
+          id: { type: UUIDType },
+          dto: { type: ChangeProfileInput }
+        }
+      },
+  },})
 });
