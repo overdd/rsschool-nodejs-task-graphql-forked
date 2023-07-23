@@ -1,6 +1,6 @@
 import { Type } from '@fastify/type-provider-typebox';
 import { GraphQLObjectType, GraphQLSchema, GraphQLList } from 'graphql';
-import { memberType, UUIDType, MemberTypeIdAsEnum,Post, User, Profile } from './types/allTypes.js';
+import { memberType, UUIDType, MemberTypeIdAsEnum,Post, User, Profile, CreateUserInput, CreatePostInput, CreateProfileInput } from './types/allTypes.js';
 
 
 export const gqlResponseSchema = Type.Partial(
@@ -24,7 +24,7 @@ export const createGqlResponseSchema = {
 
 
 
-export const schema = new GraphQLSchema({
+export const rootSchema = new GraphQLSchema({
   query: new GraphQLObjectType({
           name: 'RootQueryType',
           fields: {
@@ -62,5 +62,28 @@ export const schema = new GraphQLSchema({
             },
 
           }
-        })
+        }),
+  mutation: new GraphQLObjectType({
+    name: 'RootMutationType',
+    fields: {
+      createUser: {
+        type: User,
+        args: {
+          dto: { type: CreateUserInput }
+        },
+      },
+      createPost: {
+        type: Post,
+        args: {
+          dto: { type: CreatePostInput }
+        },
+      },
+      createProfile: {
+        type: Post,
+        args: {
+          dto: { type: CreateProfileInput }
+        },
+      },
+    }
+  })
 });

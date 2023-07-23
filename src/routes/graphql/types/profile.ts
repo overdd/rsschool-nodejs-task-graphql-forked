@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
-import { UUIDType,  memberType } from "./allTypes.js";
+import { GraphQLInputObjectType, GraphQLObjectType, GraphQLString } from "graphql";
+import { MemberTypeIdAsEnum, UUIDType, memberType } from "./allTypes.js";
 import { NoArgument, Prisma } from "./common.js";
 
 export const Profile = new GraphQLObjectType({
@@ -25,4 +25,22 @@ export const Profile = new GraphQLObjectType({
         }),
       },
     })
+  });
+
+  export const CreateProfileInput = new GraphQLInputObjectType({
+    name: 'CreateProfileInput',
+    fields: {
+      isMale: {
+        type: GraphQLString
+      },
+      yearOfBirth: { 
+        type: GraphQLString 
+      },
+      memberType: { 
+        type: MemberTypeIdAsEnum 
+      },
+      userId: { 
+        type: UUIDType 
+      },
+    },
   });

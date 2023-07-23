@@ -1,5 +1,5 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
-import { createGqlResponseSchema, gqlResponseSchema, schema } from './schemas.js';
+import { createGqlResponseSchema, gqlResponseSchema, rootSchema } from './schemas.js';
 import memberTypeResolvers from './resolvers/member.resolver.js';
 import postResolver from './resolvers/post.resolver.js';
 import userResolver from './resolvers/user.resolver.js';
@@ -23,7 +23,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       const { query, variables } = req.body;
       
       const result = await graphql({
-        schema: schema,
+        schema: rootSchema,
         source: query,
         rootValue: {
           ...memberTypeResolvers,
