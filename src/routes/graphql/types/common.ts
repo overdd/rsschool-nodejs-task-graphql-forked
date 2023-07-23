@@ -30,4 +30,7 @@ export type PostInput = {
     authorId: string;
 };
   
-  
+export type SubscriptionInput = {
+    userId: string;
+    authorId: string;
+};

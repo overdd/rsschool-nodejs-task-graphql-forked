@@ -1,5 +1,5 @@
 import { Type } from '@fastify/type-provider-typebox';
-import { GraphQLObjectType, GraphQLSchema, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLSchema, GraphQLList, GraphQLString } from 'graphql';
 import { memberType, UUIDType, MemberTypeIdAsEnum,Post, User, Profile, CreateUserInput, CreatePostInput, CreateProfileInput, ChangePostInput, ChangeUserInput, ChangeProfileInput } from './types/allTypes.js';
 
 
@@ -123,5 +123,19 @@ export const rootSchema = new GraphQLSchema({
           dto: { type: ChangeProfileInput }
         }
       },
+      subscribeTo: {
+        type: User,
+        args: {
+          userId: { type: UUIDType },
+          authorId: { type: UUIDType },
+        }
+      },
+      unsubscribeFrom: {
+        type: GraphQLString,
+        args: {
+          userId: { type: UUIDType },
+          authorId: { type: UUIDType },
+        }
+      }
   },})
 });

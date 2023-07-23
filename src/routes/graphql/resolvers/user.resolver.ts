@@ -1,4 +1,4 @@
-import { Id, Prisma, NoArgument, UserInput } from "../types/common.js";
+import { Id, Prisma, NoArgument, UserInput, SubscriptionInput } from "../types/common.js";
 
 const getUser = async ({ id }: Id, { prisma }: Prisma ) => {
   return await prisma.user.findUnique({ where: { id } });
@@ -30,10 +30,35 @@ const changeUser = async ({ id, dto: data}: Id & { dto: Partial<UserInput> }, { 
   }
 };
 
+
+const subscribeTo = async ({ userId: id, authorId }: SubscriptionInput, { prisma }: Prisma) => {
+  try {
+    const user = prisma.user.update({
+      where: { id }, data: { userSubscribedTo: { create: { authorId } } },
+    });
+    return user;
+  } catch (error) {
+    console.log(`Not able to subscride user id = ${id}, authorId = ${authorId}`);
+  }
+};
+
+const unsubscribeFrom = async ({ userId: subscriberId, authorId }: SubscriptionInput, { prisma }: Prisma) => {
+  try {
+    await prisma.subscribersOnAuthors.delete({
+      where: { subscriberId_authorId: { subscriberId, authorId } },
+    });
+    return null;
+  } catch (error) {
+    console.log(`Not able to subscride user id = ${subscriberId}, authorId = ${authorId}`);
+  }
+};
+
 export default {
   user: getUser,
   users: getAllUsers,
   createUser: createUser,
   deleteUser: deleteUser,
-  changeUser: changeUser
+  changeUser: changeUser,
+  subscribeTo: subscribeTo,
+  unsubscribeFrom: unsubscribeFrom
 };
